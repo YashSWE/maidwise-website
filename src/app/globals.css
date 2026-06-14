@@ -3,21 +3,15 @@
 @theme inline {
   --color-brand-red: #FF2600;
   --color-brand-yellow: #FFF800;
+  --color-creamy-bg: #FCFBF7;
   --color-dark-ink: #111111;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: "Futura-CondensedExtraBold", "Futura", "Impact", "Arial Black", sans-serif;
 }
 
 :root {
-  --background: #ffffff;
+  --background: #FCFBF7;
   --foreground: #111111;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -31,6 +25,7 @@ body {
 }
 
 .bg-sunset-gradient {
-  background: radial-gradient(circle at top right, rgba(255, 38, 0, 0.05), transparent 50%),
-              radial-gradient(circle at bottom left, rgba(255, 248, 0, 0.1), transparent 50%);
+  background: radial-gradient(circle at top center, rgba(255, 248, 0, 0.25) 0%, transparent 60%),
+              radial-gradient(circle at top right, rgba(255, 38, 0, 0.08) 0%, transparent 60%);
+  background-color: var(--background);
 }
