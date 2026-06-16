@@ -137,10 +137,10 @@ export default function PrivacyPolicyPage() {
               <li>
                 <strong>Email:</strong>{" "}
                 <a
-                  href="mailto:yashbhandari.contact@gmail.com"
+                  href="mailto:behumoury.ch@gmail.com"
                   className="text-brand-red hover:underline"
                 >
-                  yashbhandari.contact@gmail.com
+                  behumoury.ch@gmail.com
                 </a>
               </li>
             </ul>
