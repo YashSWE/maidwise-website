@@ -25,18 +25,35 @@ export default function PrivacyPolicyPage() {
 
         <div className="prose prose-lg prose-headings:font-display prose-headings:font-black prose-headings:tracking-tighter prose-a:text-brand-red prose-a:no-underline hover:prose-a:underline max-w-none space-y-8 text-black/80 leading-relaxed">
           <section>
+            <h2 className="text-2xl text-dark-ink">1. Introduction</h2>
             <p>
-              Welcome to Maidwise (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;). We respect your privacy and are committed to protecting your personal data in accordance with the Digital Personal Data Protection Act, 2023 (India), the General Data Protection Regulation (GDPR), and other applicable data protection laws.
+              Maidwise (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our iOS mobile application and cloud sync services (collectively, the &ldquo;Service&rdquo;) in accordance with the Digital Personal Data Protection Act, 2023 (India), the General Data Protection Regulation (GDPR), and other applicable data protection laws.
             </p>
             <p className="mt-4">
-              This Privacy Policy explains how we collect, use, store, and share your personal data when you use the Maidwise iOS application (the &ldquo;App&rdquo;) and your website interactions.
+              By using Maidwise, you agree to the collection and use of information in accordance with this policy.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl text-dark-ink">1. Data We Collect &amp; How We Process It</h2>
+            <h2 className="text-2xl text-dark-ink">2. Information We Collect</h2>
             
-            <h3 className="text-xl font-bold text-dark-ink mt-6 mb-2">A. Device-Only (Local) Storage — We Do Not Upload This Data</h3>
+            <h3 className="text-xl font-bold text-dark-ink mt-6 mb-2">A. Personal Information</h3>
+            <p>When you register for an account, we may collect:</p>
+            <ul className="list-disc pl-6 space-y-2 mt-4">
+              <li>Name</li>
+              <li>Email address</li>
+              <li>Profile information &amp; avatar URL (provided by identity providers)</li>
+            </ul>
+
+            <h3 className="text-xl font-bold text-dark-ink mt-8 mb-2">B. Domestic Help &amp; Attendance Data</h3>
+            <p>As part of our attendance and salary tracking service, we sync and backup:</p>
+            <ul className="list-disc pl-6 space-y-2 mt-4">
+              <li>Domestic staff details (names, phone numbers)</li>
+              <li>Attendance records and leaves</li>
+              <li>Financial records (salary rates, leave deductions, advance logs, payment logs)</li>
+            </ul>
+
+            <h3 className="text-xl font-bold text-dark-ink mt-8 mb-2">C. Device-Only (Local) Sensitive Information — We Do Not Upload This Data</h3>
             <p>
               We prioritize privacy and minimize the collection of sensitive personal data on our servers. The following information is stored <strong>exclusively on your device</strong> using iOS secure file encryption and is never transmitted to our servers:
             </p>
@@ -52,98 +69,178 @@ export default function PrivacyPolicyPage() {
               </li>
             </ul>
 
-            <h3 className="text-xl font-bold text-dark-ink mt-8 mb-2">B. Cloud Storage (Synced Data)</h3>
+            <h3 className="text-xl font-bold text-dark-ink mt-8 mb-2">D. Usage Data</h3>
+            <p>We automatically collect certain information when you use Maidwise:</p>
+            <ul className="list-disc pl-6 space-y-2 mt-4">
+              <li>Device information (device type, operating system, unique identifiers)</li>
+              <li>Log data (access times, app features used)</li>
+              <li>Analytics data (app performance, crash reports)</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">3. How We Use Your Information</h2>
+            <p>We use the collected information to:</p>
+            <ul className="list-disc pl-6 space-y-2 mt-4">
+              <li>Provide and maintain our attendance and salary tracking service</li>
+              <li>Coordinate cloud syncing across your family&apos;s devices</li>
+              <li>Personalize your experience and settings</li>
+              <li>Send you notifications about your staff and goals</li>
+              <li>Improve our app and develop new features</li>
+              <li>Communicate with you about updates and support</li>
+              <li>Ensure security and prevent fraud</li>
+              <li>Comply with legal obligations</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">4. Data Sharing and Disclosure</h2>
             <p>
-              To provide the multi-device sync feature, the following data is processed and stored on our secure cloud database (powered by Supabase):
+              We do not sell, trade, or rent your personal information. We may share your information only in the following circumstances:
             </p>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>
-                <strong>Identity &amp; Account Information:</strong> Your name, profile picture, and email address collected during sign-in (via Google Sign-In or Sign in with Apple).
+                <strong>With your consent:</strong> When you explicitly agree to share or add members to your household.
               </li>
               <li>
-                <strong>Household &amp; Staff Records:</strong> Maid names, phone numbers, task records, and daily attendance logs.
+                <strong>Service providers:</strong> With trusted third parties who help us operate our service:
+                <ul className="list-disc pl-6 space-y-1 mt-2">
+                  <li><em>Supabase:</em> For hosting our cloud sync database.</li>
+                  <li><em>RevenueCat:</em> For processing subscriptions and checking purchase states.</li>
+                  <li><em>Google Mobile Ads (AdMob):</em> For serving ads (subject to your App Tracking Transparency consent).</li>
+                </ul>
               </li>
               <li>
-                <strong>Financial Logs:</strong> Monthly salaries, leave deduction settings, recorded advance payments, and salary history.
+                <strong>Legal requirements:</strong> When required by law or to protect rights and safety.
+              </li>
+              <li>
+                <strong>Business transfers:</strong> In connection with a merger, acquisition, or sale of assets.
               </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl text-dark-ink">2. Legal Basis for Processing</h2>
-            <p>We process your personal data under the following legal grounds:</p>
-            <ol className="list-decimal pl-6 space-y-2 mt-4">
-              <li>
-                <strong>Consent:</strong> Your explicit consent given when creating your account.
-              </li>
-              <li>
-                <strong>Contractual Necessity:</strong> To provide the core sync features and subscription management (via RevenueCat).
-              </li>
-              <li>
-                <strong>Legitimate Interests:</strong> To prevent fraud, ensure app security, and deliver ads (via Google Mobile Ads).
-              </li>
-            </ol>
-          </section>
-
-          <section>
-            <h2 className="text-2xl text-dark-ink">3. Sharing with Third Parties</h2>
-            <p>We do not sell your personal data. We only share data with trusted service providers to run the App:</p>
+            <h2 className="text-2xl text-dark-ink">5. Data Security</h2>
+            <p>
+              We implement appropriate technical and organizational measures to protect your personal information, including:
+            </p>
             <ul className="list-disc pl-6 space-y-2 mt-4">
-              <li>
-                <strong>Supabase:</strong> For hosting our cloud sync database.
-              </li>
-              <li>
-                <strong>RevenueCat:</strong> For processing subscriptions and checking purchase states.
-              </li>
-              <li>
-                <strong>Google Mobile Ads (AdMob):</strong> For serving personalized or non-personalized ads (subject to your App Tracking Transparency consent).
-              </li>
+              <li>Encryption of data in transit and at rest</li>
+              <li>On-device secure file encryption for Aadhaar photos and payment screenshots</li>
+              <li>Regular security assessments</li>
+              <li>Access controls and authentication</li>
+              <li>Secure cloud infrastructure</li>
             </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl text-dark-ink">4. Data Security &amp; Retention</h2>
-            <p>Your cloud sync data is encrypted in transit and at rest.</p>
             <p className="mt-4">
-              <strong>Retention Period:</strong> We retain your cloud data only as long as your account is active. If you request account deletion, <strong>all data associated with your user ID and households is permanently and immediately deleted from our servers</strong>.
+              However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl text-dark-ink">5. Your Rights (DPDP Act &amp; GDPR)</h2>
-            <p>You have the following rights:</p>
+            <h2 className="text-2xl text-dark-ink">6. Your Rights and Choices</h2>
+            <p>You have the right to:</p>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>
-                <strong>Right to Access &amp; Correct:</strong> Access your profile and correct incorrect records.
+                <strong>Access:</strong> Request a copy of your personal data.
               </li>
               <li>
-                <strong>Right to Erasure (Withdrawal of Consent):</strong> Delete your account and all associated cloud data directly from the App&apos;s Profile settings.
+                <strong>Correction:</strong> Update or correct inaccurate information.
               </li>
               <li>
-                <strong>Right to Nominate (DPDP Act):</strong> The right to nominate another individual to exercise your rights in the event of death or incapacity.
+                <strong>Deletion:</strong> Request deletion of your account and data (can be triggered directly in settings with a safety verification typing test).
               </li>
+              <li>
+                <strong>Portability:</strong> Export your tracking and financial data.
+              </li>
+              <li>
+                <strong>Restrict processing:</strong> Limit how we use your data.
+              </li>
+              <li>
+                <strong>Right to Nominate (DPDP Act):</strong> Nominate another individual to exercise your rights in the event of death or incapacity.
+              </li>
+            </ul>
+            <p className="mt-4">
+              To exercise these rights, please contact us at{" "}
+              <a href="mailto:behumoury.ch@gmail.com" className="text-brand-red hover:underline">
+                behumoury.ch@gmail.com
+              </a>.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">7. Data Retention</h2>
+            <p>
+              We retain your personal information for as long as necessary to provide our services. When you request the deletion of your account, we will permanently and immediately initiate the deletion of all associated cloud databases, synced household records, and profiles from our active databases.
+            </p>
+            <p className="mt-4">
+              Please note that complete erasure across third-party backups, logs, or cache systems (such as Supabase servers or Google AdMob systems) may take additional time according to those providers&apos; respective policies. We are not liable for the data storage or deletion practices of these third-party providers.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">8. Third-Party Platforms and Limitation of Liability</h2>
+            <p>
+              Maidwise relies on infrastructure and services provided by trusted third-party platforms (such as Google Mobile Ads for advertisement delivery, and Supabase for cloud database storage and authentication).
+            </p>
+            <p className="mt-4">
+              While we initiate prompt deletion of all your cloud-backed records and user accounts from our databases immediately upon your request, we do not control the internal data retention, backup systems, caching, or archiving policies of these third-party platforms. To the maximum extent permitted by applicable law, we are not responsible or liable for any failure, delay, storage retention, or security breaches occurring on or by these third-party systems.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">9. Children&apos;s Privacy</h2>
+            <p>
+              Maidwise is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">10. International Data Transfers</h2>
+            <p>
+              Your cloud database information is transferred to and processed in secure cloud servers. These servers may be located in countries other than your country of residence, which may have different data protection laws. We ensure appropriate safeguards are in place to protect your information.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">11. California Privacy Rights</h2>
+            <p>
+              California residents have additional rights under the California Consumer Privacy Act (CCPA), including:
+            </p>
+            <ul className="list-disc pl-6 space-y-2 mt-4">
+              <li>Right to know what personal information we collect</li>
+              <li>Right to delete personal information</li>
+              <li>Right to opt-out of the sale of personal information (we do not sell personal information)</li>
+              <li>Right to non-discrimination</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl text-dark-ink">6. Grievance Redressal</h2>
+            <h2 className="text-2xl text-dark-ink">12. Changes to This Privacy Policy</h2>
             <p>
-              If you have questions, concerns, or wish to file a complaint regarding your personal data, please contact our Grievance Officer:
+              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &ldquo;Last updated&rdquo; date. We encourage you to review this Privacy Policy periodically.
             </p>
-            <ul className="list-disc pl-6 space-y-2 mt-4">
-              <li>
-                <strong>Grievance Officer:</strong> Yash Bhandari
-              </li>
-              <li>
-                <strong>Email:</strong>{" "}
-                <a
-                  href="mailto:behumoury.ch@gmail.com"
-                  className="text-brand-red hover:underline"
-                >
+          </section>
+
+          <section>
+            <h2 className="text-2xl text-dark-ink">13. Contact &amp; Grievance Redressal</h2>
+            <p>
+              If you have any questions about this Privacy Policy, our data practices, or wish to file a complaint, please contact us:
+            </p>
+            <div className="mt-4">
+              <p><strong>Maidwise</strong></p>
+              <p>
+                Grievance Officer: Yash Bhandari
+              </p>
+              <p>
+                Email:{" "}
+                <a href="mailto:behumoury.ch@gmail.com" className="text-brand-red hover:underline">
                   behumoury.ch@gmail.com
                 </a>
-              </li>
-            </ul>
+              </p>
+              <p>
+                Website: <a href="https://maidwise.behumoury.com" className="text-brand-red hover:underline">maidwise.behumoury.com</a>
+              </p>
+            </div>
           </section>
         </div>
       </main>
