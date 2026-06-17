@@ -248,9 +248,23 @@ export default function PrivacyPolicyPage() {
       {/* Footer */}
       <footer className="w-full border-t border-black/5 bg-white py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="font-display font-black tracking-tight text-xl text-dark-ink">
+          <p className="font-display font-black tracking-tight text-xl text-dark-ink lowercase">
             maidwise
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <Link href="/" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
+              Home
+            </Link>
+            <Link href="/faq" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
+              FAQs
+            </Link>
+            <Link href="/terms" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="#" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
+              App Store
+            </Link>
+          </div>
           <p className="text-sm text-black/50">
             &copy; {new Date().getFullYear()} Maidwise. All rights reserved.
           </p>

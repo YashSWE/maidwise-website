@@ -121,9 +121,15 @@ export default function Home() {
           <p className="font-display font-black tracking-tight text-xl text-brand-red lowercase">
             maidwise
           </p>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <Link href="/faq" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
+              FAQs
+            </Link>
             <Link href="/privacy" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
               Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
+              Terms of Service
             </Link>
             <Link href="#" className="text-sm font-semibold text-black/50 hover:text-brand-red transition-colors">
               App Store

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDLC Dashboard</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1c1f2e;
+  --surface2: #252836;
+  --border: #2e3248;
+  --text: #e8eaf0;
+  --muted: #8b90a7;
+  --accent: #6c6ef7;
+  --green: #4ade80;
+  --yellow: #fbbf24;
+  --red: #f87171;
+  --orange: #fb923c;
+  --purple: #a78bfa;
+  --blue: #60a5fa;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.5; padding: 28px; }
+.header { margin-bottom: 32px; }
+.header h1 { font-size: 26px; font-weight: 700; }
+.header .meta { color: var(--muted); margin-top: 6px; font-size: 13px; }
+.branch-tag { display: inline-block; background: var(--surface2); border: 1px solid var(--border); padding: 1px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; color: var(--blue); }
+.section { margin-bottom: 36px; }
+.section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 8px; }
+.stat-value { font-size: 32px; font-weight: 700; }
+.stat-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.progress-wrap { background: var(--surface2); border-radius: 100px; height: 6px; overflow: hidden; margin-top: 10px; }
+.progress-fill { height: 100%; border-radius: 100px; background: var(--accent); transition: width 0.4s; }
+.pipeline { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; }
+.phase-item { display: flex; flex-direction: column; align-items: center; min-width: 96px; position: relative; }
+.phase-item:not(:last-child)::after { content: ''; position: absolute; top: 15px; left: calc(50% + 16px); right: calc(-50% + 16px); height: 2px; background: var(--border); }
+.phase-item.done:not(:last-child)::after { background: var(--green); }
+.phase-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 2px solid var(--border); background: var(--surface2); color: var(--muted); z-index: 1; position: relative; }
+.phase-dot.done { background: var(--green); border-color: var(--green); color: #000; }
+.phase-dot.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 4px rgba(108,110,247,0.2); }
+.phase-name { font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px; max-width: 80px; }
+.phase-item.active .phase-name { color: var(--accent); font-weight: 600; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 8px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 1px solid var(--border); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.badge { display: inline-block; padding: 2px 9px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+.b-complete { background: rgba(74,222,128,0.12); color: var(--green); }
+.b-progress { background: rgba(108,110,247,0.12); color: var(--accent); }
+.b-blocked { background: rgba(248,113,113,0.12); color: var(--red); }
+.b-pending { background: var(--surface2); color: var(--muted); }
+.b-deferred { background: rgba(251,191,36,0.12); color: var(--yellow); }
+.pts { background: var(--surface2); border: 1px solid var(--border); padding: 1px 7px; border-radius: 4px; font-size: 11px; font-family: monospace; color: var(--purple); }
+.p1 { color: var(--red); font-weight: 700; font-size: 11px; }
+.p2 { color: var(--yellow); font-weight: 600; font-size: 11px; }
+.p3 { color: var(--muted); font-size: 11px; }
+.dtag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; border: 1px solid; }
+.domains-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.dcard { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid; border-radius: 10px; padding: 16px; }
+.dcard h3 { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.dcard .dstories { list-style: none; font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 3px; }
+.dcard .dstories li::before { content: '→ '; color: var(--accent); }
+.review-rows { display: flex; flex-direction: column; gap: 8px; }
+.rrow { display: flex; align-items: center; gap: 12px; background: var(--surface2); border-radius: 8px; padding: 10px 14px; }
+.rdomain { font-weight: 600; flex: 1; }
+.pills { display: flex; gap: 5px; }
+.pill { padding: 2px 7px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+.pc { background: rgba(248,113,113,0.18); color: var(--red); }
+.ph { background: rgba(251,146,60,0.18); color: var(--orange); }
+.pm { background: rgba(251,191,36,0.18); color: var(--yellow); }
+.footer { margin-top: 48px; color: var(--muted); font-size: 11px; text-align: center; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+// ─────────────────────────────────────────────────────────────
+// Claude: update ONLY this object when refreshing the dashboard
+// ─────────────────────────────────────────────────────────────
+const SDLC_DATA = {
+  meta: {
+    epicNumber: 1,
+    epicName: "Website FAQ & Terms Pages",
+    branch: "main",
+    currentPhase: 6,        // 0=Kickoff  1=Epic  2=Stories  3=Planning  4=Impl  5=Review  6=Report
+    startDate: "2026-06-17",
+    goals: ["Add FAQ (Coming Soon) Page", "Add Terms & Conditions Page", "Update website footers"],
+    successCriteria: ["Visual verification of the /faq page", "Visual verification of the /terms page", "Navigation flows successfully from footer links"]
+  },
+  phases: [
+    { name: "Kickoff" },
+    { name: "Epic Creation" },
+    { name: "Story Gen." },
+    { name: "Impl. Plan" },
+    { name: "Implementation" },
+    { name: "Code Review" },
+    { name: "SDLC Report" }
+  ],
+  stories: [
+    { id: "S01", name: "Add FAQ Coming Soon Page", domain: "ui-views", points: 3, priority: "P1", status: "complete", description: "Create route /faq with custom glassmorphic layout and framer-motion animations." },
+    { id: "S02", name: "Add Terms and Conditions Page", domain: "ui-views", points: 2, priority: "P1", status: "complete", description: "Create route /terms with standard basic Terms and Conditions page." },
+    { id: "S03", name: "Update Website Footers", domain: "ui-views", points: 1, priority: "P1", status: "complete", description: "Update footer links on home and privacy pages to link to /faq and /terms." }
+  ],
+  domains: [
+    { id: "ui-views", label: "UI Views", color: "#6c6ef7", storyIds: ["S01", "S02", "S03"] }
+  ],
+  reviews: [
+    { domain: "ui-views", status: "complete", critical: 0, high: 1, medium: 0 }
+  ],
+  lastUpdated: new Date().toISOString()
+};
+// ─────────────────────────────────────────────────────────────
+
+const PALETTE = ['#6c6ef7','#4ade80','#f87171','#fbbf24','#60a5fa','#a78bfa','#fb923c','#34d399','#e879f9','#2dd4bf'];
+
+function dc(domainId) {
+  const d = SDLC_DATA.domains.find(x => x.id === domainId);
+  return d?.color || '#8b90a7';
+}
+
+function badge(status) {
+  const map = { complete:'b-complete', 'in-progress':'b-progress', blocked:'b-blocked', 'not-started':'b-pending', deferred:'b-deferred' };
+  return `<span class="badge ${map[status]||'b-pending'}">${status.replace('-',' ')}</span>`;
+}
+
+function render() {
+  const { meta, phases, stories, domains, reviews } = SDLC_DATA;
+  domains.forEach((d,i) => { if (!d.color) d.color = PALETTE[i % PALETTE.length]; });
+
+  const totalPts = stories.reduce((s,x)=>s+x.points,0);
+  const donePts  = stories.filter(x=>x.status==='complete').reduce((s,x)=>s+x.points,0);
+  const doneN    = stories.filter(x=>x.status==='complete').length;
+  const pct      = totalPts>0 ? Math.round(donePts/totalPts*100) : 0;
+  const critN    = reviews.reduce((s,r)=>s+(r.critical||0),0);
+
+  document.getElementById('root').innerHTML = `
+    <div class="header">
+      <h1>Epic ${meta.epicNumber}: ${meta.epicName}</h1>
+      <div class="meta">
+        Branch: <span class="branch-tag">${meta.branch}</span>
+        &nbsp;·&nbsp; Started: ${meta.startDate||'—'}
+        &nbsp;·&nbsp; Updated: ${new Date(SDLC_DATA.lastUpdated).toLocaleString()}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Phase Progress</div>
+      <div class="pipeline">
+        ${phases.map((p,i)=>{
+          const done = i < meta.currentPhase;
+          const active = i === meta.currentPhase;
+          return `<div class="phase-item ${done?'done':''} ${active?'active':''}">
+            <div class="phase-dot ${done?'done':active?'active':''}">${done?'✓':i}</div>
+            <div class="phase-name">${p.name}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Progress</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Stories</div>
+          <div class="stat-value">${doneN}<span style="font-size:18px;color:var(--muted)"> / ${stories.length}</span></div>
+          <div class="stat-sub">complete</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Story Points</div>
+          <div class="stat-value">${donePts}<span style="font-size:18px;color:var(--muted)"> / ${totalPts}</span></div>
+          <div class="stat-sub">${pct}% delivered</div>
+          <div class="progress-wrap" style="margin-top:10px"><div class="progress-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Code Reviews</div>
+          <div class="stat-value">${reviews.filter(r=>r.status==='complete').length}<span style="font-size:18px;color:var(--muted)"> / ${reviews.length}</span></div>
+          <div class="stat-sub">complete</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Review Issues</div>
+          <div class="stat-value" style="color:${critN>0?'var(--red)':'var(--green)'}">${critN}</div>
+          <div class="stat-sub">critical findings</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Goals</div>
+      <div class="card" style="padding:16px 20px">
+        <ul style="list-style-type:none; display:flex; flex-direction:column; gap:8px">
+          ${meta.goals.map((g,i)=>{
+            const checked = meta.successCriteria[i] ? 'checked' : '';
+            return `<li style="display:flex; align-items:center; gap:10px">
+              <span style="color:var(--accent); font-weight:bold">${i+1}.</span> ${g}
+            </li>`;
+          }).join('')}
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Stories</div>
+      <div class="card" style="padding:0; overflow:hidden">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:70px">ID</th>
+              <th>Story</th>
+              <th>Domain</th>
+              <th style="width:80px">Points</th>
+              <th style="width:80px">Priority</th>
+              <th style="width:120px">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${stories.map(s=>`
+              <tr>
+                <td style="font-family:monospace;font-weight:600">${s.id}</td>
+                <td>
+                  <div style="font-weight:600;margin-bottom:2px">${s.name}</div>
+                  <div style="font-size:12px;color:var(--muted)">${s.description}</div>
+                </td>
+                <td><span class="dtag" style="border-color:${dc(s.domain)};color:${dc(s.domain)}">${s.domain}</span></td>
+                <td><span class="pts">${s.points}</span></td>
+                <td><span class="${s.priority.toLowerCase()}">${s.priority}</span></td>
+                <td>${badge(s.status)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Domains</div>
+      <div class="domains-grid">
+        ${domains.map(d=>{
+          const pts = stories.filter(s=>s.domain===d.id).reduce((sum,s)=>sum+s.points,0);
+          return `<div class="dcard" style="border-left-color:${d.color}">
+            <h3>${d.label}</h3>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:12px">${pts} story points</div>
+            <ul class="dstories">
+              ${d.storyIds.map(sid=>{
+                const s = stories.find(x=>x.id===sid);
+                return `<li>${sid}: ${s?s.name:'Unknown'}</li>`;
+              }).join('')}
+            </ul>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Reviews by Domain</div>
+      <div class="card review-rows">
+        ${reviews.map(r=>{
+          const label = domains.find(d=>d.id===r.domain)?.label || r.domain;
+          return `<div class="rrow">
+            <span class="rdomain">${label}</span>
+            <div class="pills">
+              <span class="pill pc" title="Critical">${r.critical||0}C</span>
+              <span class="pill ph" title="High">${r.high||0}H</span>
+              <span class="pill pm" title="Medium">${r.medium||0}M</span>
+            </div>
+            ${badge(r.status)}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="footer">
+      SDLC Orchestrator · Last updated ${new Date(SDLC_DATA.lastUpdated).toLocaleTimeString()}
+    </div>
+  `;
+}
+
+render();
+</script>
+</body>
+</html>
